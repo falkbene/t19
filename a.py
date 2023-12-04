@@ -4,8 +4,8 @@ import requests
 import re
 
 import htpasswdlib
-URL_HASH = "http://127.0.0.1:5000/.htpasswd"
-URL = "http://127.0.0.1:5000"
+URL_HASH = "https://t19.itsec.sec.in.tum.de/.htpasswd"
+URL = "https://t19.itsec.sec.in.tum.de"
 
 chars = 'abcdefghijklmnopqrstuvwxyz0123456789'
 combs = itertools.product(chars, repeat=5)
